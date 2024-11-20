@@ -1,0 +1,7 @@
+package com.slobodianyk.java_spring_boot.repository;
+
+import com.slobodianyk.java_spring_boot.model.Todo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TodoRepository extends JpaRepository<Todo, Long> {
+}

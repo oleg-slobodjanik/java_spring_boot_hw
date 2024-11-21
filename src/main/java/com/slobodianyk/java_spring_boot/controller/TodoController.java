@@ -4,9 +4,7 @@ import com.slobodianyk.java_spring_boot.dto.TaskHistoryResponseDto;
 import com.slobodianyk.java_spring_boot.dto.TodoCreateDto;
 import com.slobodianyk.java_spring_boot.dto.TodoResponseDto;
 import com.slobodianyk.java_spring_boot.dto.TodoUpdateDto;
-import com.slobodianyk.java_spring_boot.exception.TodoNotFoundException;
 import com.slobodianyk.java_spring_boot.service.impl.TodoServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -29,7 +27,6 @@ import java.util.List;
 public class TodoController {
     private final TodoServiceImpl todoService;
 
-    @Autowired
     public TodoController(TodoServiceImpl todoService) {
         this.todoService = todoService;
     }
@@ -47,9 +44,6 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResponseDto> getById(@PathVariable Long id) {
         TodoResponseDto todoResponse = todoService.findById(id);
-        if (todoResponse == null) {
-            throw new TodoNotFoundException(id);
-        }
         return ResponseEntity.ok(todoResponse);
     }
 

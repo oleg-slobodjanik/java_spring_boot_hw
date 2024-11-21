@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface TodoService {
 
-    boolean existsById(Long id);
-
     void deleteById(Long id);
 
     List<TodoResponseDto> findAll();

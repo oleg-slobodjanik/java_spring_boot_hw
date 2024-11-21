@@ -10,10 +10,6 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 
 public record TodoCreateDto(
-        // title: String (required, limited to 100 characters, e.g., max length = 100)
-        // description: String (optional, but if present, limited to 500 characters)
-        // dueDate: LocalDateTime (required)
-        // priority: enum (optional, can be values like LOW, MEDIUM, HIGH)
         @NotBlank(message = "Title cannot be blank")
         @Length(max = 100, message = "Title must be 100 characters or fewer")
         String title,

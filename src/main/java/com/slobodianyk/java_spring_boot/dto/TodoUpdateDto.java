@@ -10,11 +10,6 @@ import org.hibernate.validator.constraints.Length;
 import java.time.LocalDateTime;
 
 public record TodoUpdateDto(
-        // title: String (required, limited to 100 characters, e.g., max length = 100)
-        // description: String (optional, but if present, limited to 500 characters)
-        // dueDate: LocalDateTime (required)
-        // priority: enum (optional, values like LOW, MEDIUM, HIGH)
-        // status: enum (required, values like PENDING, IN_PROGRESS, COMPLETED)
         @NotBlank(message = "Title cannot be blank")
         @Length(max = 100, message = "Title should not exceed 100 characters")
         String title,

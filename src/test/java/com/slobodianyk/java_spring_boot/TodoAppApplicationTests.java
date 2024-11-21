@@ -10,5 +10,4 @@ class TodoAppApplicationTests {
     void contextLoads() {
     }
 
-
 }

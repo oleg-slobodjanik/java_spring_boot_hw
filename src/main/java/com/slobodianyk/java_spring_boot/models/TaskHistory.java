@@ -1,4 +1,4 @@
-package com.slobodianyk.java_spring_boot.model;
+package com.slobodianyk.java_spring_boot.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Column;
 import lombok.Data;
 
@@ -28,7 +29,7 @@ public class TaskHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "todo_id", nullable = false)
     private Todo todo;
     @Column(name = "old_state")

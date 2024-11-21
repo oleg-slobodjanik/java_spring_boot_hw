@@ -1,4 +1,4 @@
-package com.slobodianyk.java_spring_boot.model;
+package com.slobodianyk.java_spring_boot.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.slobodianyk.java_spring_boot.dto.todoEnum.Priority;

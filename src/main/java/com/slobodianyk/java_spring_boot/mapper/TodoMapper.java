@@ -3,7 +3,7 @@ package com.slobodianyk.java_spring_boot.mapper;
 import com.slobodianyk.java_spring_boot.dto.TodoCreateDto;
 import com.slobodianyk.java_spring_boot.dto.TodoResponseDto;
 import com.slobodianyk.java_spring_boot.dto.TodoUpdateDto;
-import com.slobodianyk.java_spring_boot.model.Todo;
+import com.slobodianyk.java_spring_boot.models.Todo;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

@@ -9,8 +9,8 @@ import com.slobodianyk.java_spring_boot.dto.TaskHistoryResponseDto;
 import com.slobodianyk.java_spring_boot.dto.TodoCreateDto;
 import com.slobodianyk.java_spring_boot.dto.TodoResponseDto;
 import com.slobodianyk.java_spring_boot.dto.TodoUpdateDto;
-import com.slobodianyk.java_spring_boot.model.TaskHistory;
-import com.slobodianyk.java_spring_boot.model.Todo;
+import com.slobodianyk.java_spring_boot.models.TaskHistory;
+import com.slobodianyk.java_spring_boot.models.Todo;
 import com.slobodianyk.java_spring_boot.repository.TaskHistoryRepository;
 import com.slobodianyk.java_spring_boot.repository.TodoRepository;
 
@@ -32,11 +32,6 @@ public class TodoServiceImpl implements TodoService {
     private final TaskHistoryRepository taskHistoryRepository;
     private final TodoMapper todoMapper;
     private final TaskHistoryMapper taskHistoryMapper;
-
-    @Override
-    public boolean existsById(Long id) {
-        return todoRepository.existsById(id);
-    }
 
     @Override
     public List<TodoResponseDto> findAll() {
@@ -103,14 +98,11 @@ public class TodoServiceImpl implements TodoService {
         Todo existingTodo = todoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Todo with id " + id + " not found."));
 
-        // Keep a copy of the old state for history
         String oldState = existingTodo.toString();
 
-        // Update fields from DTO
         todoMapper.updateEntityFromDto(todoUpdateDto, existingTodo);
         existingTodo.setUpdatedDate(LocalDateTime.now());
 
-        // Create history entry if the state has changed
         if (!oldState.equals(existingTodo.toString())) {
             TaskHistory history = new TaskHistory();
             history.setTodo(existingTodo);
@@ -128,13 +120,11 @@ public class TodoServiceImpl implements TodoService {
     @Override
     @Transactional
     public void delete(Long id) {
-        // Fetch the Todo item by ID, or throw an exception if not found
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Todo with id " + id + " not found."));
 
         todoRepository.delete(todo);
 
-        // Record the deletion in the task history
         TaskHistory history = new TaskHistory();
         history.setTodo(todo);
         history.setOldState(todo.getStatus().toString());
@@ -149,7 +139,6 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = todoRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Todo with id " + id + " not found."));
 
-        // Fetch task history for the given todo id
         List<TaskHistory> historyList = taskHistoryRepository.findByTodoId(id);
 
         return historyList.stream()

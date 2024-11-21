@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: "olegS"
+      changes:
+        - createTable:
+            tableName: "task_history"
+            columns:
+              - column:
+                  name: "id"
+                  type: "BIGINT"
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: "todo_id"
+                  type: "BIGINT"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "old_state"
+                  type: "TEXT"
+              - column:
+                  name: "new_state"
+                  type: "TEXT"
+              - column:
+                  name: "change_date"
+                  type: "TIMESTAMP"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: "changed_by"
+                  type: "VARCHAR(255)"
+
+        - addForeignKeyConstraint:
+            baseTableName: "task_history"
+            baseColumnNames: "todo_id"
+            referencedTableName: "todos"
+            referencedColumnNames: "id"
+            constraintName: "fk_task_history_todo"
